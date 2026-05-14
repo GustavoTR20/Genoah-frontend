@@ -70,24 +70,35 @@ function Home() {
         <button type='button' onClick={createSubscription}> Add Subscription </button>
       </form>
 
-      {subscriptions.map((subscription) => (
-        <div key={subscription.id} className='card'>
-          <div className='subscription-info'>
-            <div>
-              <h2>{subscription.serviceName}</h2>
-              <p>{subscription.accountEmail}</p>
+      <div className='subscriptions-section'>
+        <div className='subscriptions-header'>
+          <h2>Your Subscriptions</h2>
+          <span>{subscriptions.length} active services</span>
+        </div>
+
+        {subscriptions.map((subscription) => (
+          <div key={subscription.id} className='subscription-row'>
+            <div className='subscription-left'>
+              <div className='subscription-icon'>
+                {subscription.serviceName.charAt(0)}
+              </div>
+
+              <div>
+                <h3>{subscription.serviceName}</h3>
+                <p>{subscription.accountEmail}</p>
+              </div>
             </div>
 
-            <span className='price-tag'>
-              €{subscription.monthlyPrice}
-            </span>
-          </div>
+            <div className='subscription-right'>
+              <span className='price-tag'> €{subscription.monthlyPrice} </span>
 
-          <button onClick={() => deleteSubscription(subscription.id)}>
-            <img src={Trash} />
-          </button>
-        </div>
-      ))}
+              <button onClick={() => deleteSubscription(subscription.id)}>
+                <img src={Trash}/>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
