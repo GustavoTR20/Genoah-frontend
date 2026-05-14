@@ -6,6 +6,7 @@ import api from '../../services/api'
 function Home() {
   const [subscriptions, setSubscriptions] = useState([])
   const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState('All')
 
   const inputServiceName = useRef()
   const inputMonthlyPrice = useRef()
@@ -52,10 +53,14 @@ function Home() {
   const activeSubscriptions = subscriptions.length
 
   const filteredSubscriptions = subscriptions.filter(
-    (subscription) =>
-      subscription.serviceName
-        .toLowerCase()
-        .includes(search.toLowerCase())
+    (subscription) => {
+
+      const matchesSearch = subscription.serviceName.toLowerCase().includes(search.toLowerCase())
+
+      const matchesStatus = statusFilter === 'All' ? true : subscription.status === statusFilter
+
+      return matchesSearch && matchesStatus
+    }
   )
 
   return (
@@ -80,6 +85,25 @@ function Home() {
       </div>
 
       <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)} />
+      <div className='filters'>
+
+        <button className={statusFilter === 'All' ? 'active-filter' : ''} onClick={() => setStatusFilter('All')}>
+          All
+        </button>
+
+        <button
+          className={statusFilter === 'Active' ? 'active-filter' : ''} onClick={() => setStatusFilter('Active')}>
+          Active
+        </button>
+
+        <button className={statusFilter === 'Paused' ? 'active-filter' : ''} onClick={() => setStatusFilter('Paused')}>
+          Paused
+        </button>
+
+        <button className={statusFilter === 'Cancelled' ? 'active-filter' : ''} onClick={() => setStatusFilter('Cancelled')}>
+          Cancelled
+        </button>
+      </div>
 
       <form>
         <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
