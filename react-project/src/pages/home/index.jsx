@@ -33,7 +33,7 @@ function Home() {
   }
 
   useEffect(() => {
-    //  getSubscriptions()
+  //  getSubscriptions()
   }, [])
 
   return (
@@ -41,13 +41,13 @@ function Home() {
     <div className='container'>
       <form>
         <h1>Subscription Manager</h1>
-        <input placeholder='Nome' name='nome' type='text' ref={inputServiceName} />
-        <input placeholder='Idade' name='idade' type='number' ref={inputMonthlyPrice} />
-        <input placeholder='email' name='email' type='email' ref={inputAccountEmail} />
-        <button type='button' onClick={createSubscription}>Cadastrar</button>
+        <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
+        <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
+        <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
+        <button type='button' onClick={createSubscription}>Add Subscription</button>
       </form>
 
-      {subscription.map((subscription) => (
+      {subscriptions.map((subscription) => (
 
         <div key={subscription.id} className='card'>
           <div>
