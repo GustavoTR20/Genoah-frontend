@@ -10,6 +10,7 @@ function Home() {
   const inputServiceName = useRef()
   const inputMonthlyPrice = useRef()
   const inputAccountEmail = useRef()
+  const inputCategory = useRef()
 
   async function getSubscriptions() {
     const subscriptionsFromApi = await api.get('/subscriptions')
@@ -21,7 +22,8 @@ function Home() {
     await api.post('/subscriptions', {
       serviceName: inputServiceName.current.value,
       monthlyPrice: inputMonthlyPrice.current.value,
-      accountEmail: inputAccountEmail.current.value
+      accountEmail: inputAccountEmail.current.value,
+      category: inputCategory.current.value
     })
 
     getSubscriptions()
@@ -75,12 +77,22 @@ function Home() {
         </div>
       </div>
 
-      <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)}/>
+      <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)} />
 
       <form>
-        <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName}/>
-        <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice}/>
-        <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail}/>
+        <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
+        <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
+        <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
+
+        <select ref={inputCategory} defaultValue=''>
+          <option value='' disabled> Select Category</option>
+          <option value='Streaming'>Streaming</option>
+          <option value='Music'>Music</option>
+          <option value='Cloud'>Cloud</option>
+          <option value='Fitness'>Fitness</option>
+          <option value='Software'>Software</option>
+          <option value='Education'>Education</option>
+        </select>
 
         <button type='button' onClick={createSubscription}> Add Subscription</button>
       </form>
@@ -103,6 +115,11 @@ function Home() {
 
               <div>
                 <h3>{subscription.serviceName}</h3>
+
+                <span className='category-badge'>
+                  {subscription.category}
+                </span>
+
                 <p>{subscription.accountEmail}</p>
               </div>
             </div>
