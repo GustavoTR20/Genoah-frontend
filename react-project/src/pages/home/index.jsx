@@ -4,58 +4,59 @@ import Trash from '../../assets/trash.png'
 import api from '../../services/api'
 
 function Home() {
-  const [users, setUsers] = useState([])
+  const [subscriptions, setSubscriptions] = useState([])
 
-  const inputName = useRef()
-  const inputAge = useRef()
-  const inputEmail = useRef()
+  const inputServiceName = useRef()
+  const inputMonthlyPrice = useRef()
+  const inputAccountEmail = useRef()
 
-  async function getUsers() {
-    const usersFromApi = await api.get('/usuarios')
+  async function getSubscriptions() {
+    const subscriptionsFromApi = await api.get('/subscriptions')
 
-    setUsers(usersFromApi.data)
+    setSubscriptions(subscriptionsFromApi.data)
   }
 
-  async function createUsers() {
-  await api.post('/usuarios', {
-    name: inputName.current.value,
-    age: inputAge.current.value,
-    email: inputEmail.current.value
-  })
+  async function createSubscription() {
+    await api.post('/subscriptions', {
+      serviceName: inputServiceName.current.value,
+      monthlyPrice: inputMonthlyPrice.current.value,
+      accountEmail: inputAccountEmail.current.value
+    })
 
-  getUsers()
-}
+    getSubscriptions()
+  }
 
-async function deleteUsers(id) {
-    await api.delete(`/usuarios/${id}`)
+  async function deleteSubscription(id) {
+    await api.delete(`/subscriptions/${id}`)
 
-    getUsers()
+    getSubscriptions()
   }
 
   useEffect(() => {
-    getUsers()
-  }, []) 
+    //  getSubscriptions()
+  }, [])
 
   return (
 
     <div className='container'>
       <form>
-        <h1>Cadastro de usuarios</h1>
-        <input placeholder='Nome' name='nome' type='text' ref={inputName}/>
-        <input placeholder='Idade' name='idade' type='number' ref={inputAge}/>
-        <input placeholder='email' name='email' type='email' ref={inputEmail}/>
-        <button type='button' onClick={createUsers}>Cadastrar</button>
+        <h1>Subscription Manager</h1>
+        <input placeholder='Nome' name='nome' type='text' ref={inputServiceName} />
+        <input placeholder='Idade' name='idade' type='number' ref={inputMonthlyPrice} />
+        <input placeholder='email' name='email' type='email' ref={inputAccountEmail} />
+        <button type='button' onClick={createSubscription}>Cadastrar</button>
       </form>
 
-      {users.map((user) => (
+      {subscription.map((subscription) => (
 
-        <div key={user.id} className='card'>
+        <div key={subscription.id} className='card'>
           <div>
-            <p>Nome:  <span>{user.name}</span></p>
-            <p>Idade: <span>{user.age}</span></p>
-            <p>Email: <span>{user.email}</span></p>
+            <p>Service: <span>{subscription.serviceName}</span></p>
+            <p>Price: <span>${subscription.monthlyPrice}</span></p>
+            <p>Account: <span>{subscription.accountEmail}</span></p>
           </div>
-          <button onClick={() => deleteUsers(user.id)}>
+
+          <button onClick={() => deleteSubscription(subscription.id)}>
             <img src={Trash} />
           </button>
         </div>
