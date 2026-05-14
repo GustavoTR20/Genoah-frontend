@@ -33,7 +33,7 @@ function Home() {
   }
 
   useEffect(() => {
-  //  getSubscriptions()
+    //  getSubscriptions()
   }, [])
 
   return (
@@ -50,10 +50,15 @@ function Home() {
 
       {subscriptions.map((subscription) => (
         <div key={subscription.id} className='card'>
-          <div>
-            <p>Service: <span>{subscription.serviceName}</span></p>
-            <p>Price: <span>€{subscription.monthlyPrice}</span></p>
-            <p>Account: <span>{subscription.accountEmail}</span></p>
+          <div className='subscription-info'>
+            <div>
+              <h2>{subscription.serviceName}</h2>
+              <p>{subscription.accountEmail}</p>
+            </div>
+
+            <span className='price-tag'>
+              €{subscription.monthlyPrice}
+            </span>
           </div>
 
           <button onClick={() => deleteSubscription(subscription.id)}>
