@@ -5,6 +5,7 @@ import api from '../../services/api'
 
 function Home() {
   const [subscriptions, setSubscriptions] = useState([])
+  const [search, setSearch] = useState('')
 
   const inputServiceName = useRef()
   const inputMonthlyPrice = useRef()
@@ -33,50 +34,67 @@ function Home() {
   }
 
   useEffect(() => {
-    //  getSubscriptions()
+  //  getSubscriptions()
   }, [])
 
-  const totalMonthlyCost = subscriptions.reduce((acc, subscription) => acc + Number(subscription.monthlyPrice), 0)
+  const totalMonthlyCost = subscriptions.reduce(
+    (acc, subscription) =>
+      acc + Number(subscription.monthlyPrice),
+    0
+  )
 
   const annualCost = totalMonthlyCost * 12
+
   const activeSubscriptions = subscriptions.length
+
+  const filteredSubscriptions = subscriptions.filter(
+    (subscription) =>
+      subscription.serviceName
+        .toLowerCase()
+        .includes(search.toLowerCase())
+  )
 
   return (
     <div className='container'>
-      <form>
-        <h1>Subscription Manager</h1>
+      <h1>Subscription Manager</h1>
 
-        <div className='dashboard-cards'>
-          <div className='dashboard-card'>
-            <span>Monthly Total</span>
-            <h2>€{totalMonthlyCost.toFixed(2)}</h2>
-          </div>
-
-          <div className='dashboard-card'>
-            <span>Active Subscriptions</span>
-            <h2>{activeSubscriptions}</h2>
-          </div>
-
-          <div className='dashboard-card'>
-            <span>Annual Cost</span>
-            <h2>€{annualCost.toFixed(2)}</h2>
-          </div>
+      <div className='dashboard-cards'>
+        <div className='dashboard-card'>
+          <span>Monthly Total</span>
+          <h2>€{totalMonthlyCost.toFixed(2)}</h2>
         </div>
 
-        <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
-        <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
-        <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
+        <div className='dashboard-card'>
+          <span>Active Subscriptions</span>
+          <h2>{activeSubscriptions}</h2>
+        </div>
 
-        <button type='button' onClick={createSubscription}> Add Subscription </button>
+        <div className='dashboard-card'>
+          <span>Annual Cost</span>
+          <h2>€{annualCost.toFixed(2)}</h2>
+        </div>
+      </div>
+
+      <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)}/>
+
+      <form>
+        <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName}/>
+        <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice}/>
+        <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail}/>
+
+        <button type='button' onClick={createSubscription}> Add Subscription</button>
       </form>
 
       <div className='subscriptions-section'>
         <div className='subscriptions-header'>
           <h2>Your Subscriptions</h2>
-          <span>{subscriptions.length} active services</span>
+
+          <span>
+            {filteredSubscriptions.length} active services
+          </span>
         </div>
 
-        {subscriptions.map((subscription) => (
+        {filteredSubscriptions.map((subscription) => (
           <div key={subscription.id} className='subscription-row'>
             <div className='subscription-left'>
               <div className='subscription-icon'>
@@ -90,10 +108,12 @@ function Home() {
             </div>
 
             <div className='subscription-right'>
-              <span className='price-tag'> €{subscription.monthlyPrice} </span>
+              <span className='price-tag'>
+                €{subscription.monthlyPrice}
+              </span>
 
               <button onClick={() => deleteSubscription(subscription.id)}>
-                <img src={Trash}/>
+                <img src={Trash} />
               </button>
             </div>
           </div>
