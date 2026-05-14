@@ -36,10 +36,32 @@ function Home() {
     //  getSubscriptions()
   }, [])
 
+  const totalMonthlyCost = subscriptions.reduce((acc, subscription) => acc + Number(subscription.monthlyPrice), 0)
+
+  const annualCost = totalMonthlyCost * 12
+  const activeSubscriptions = subscriptions.length
+
   return (
     <div className='container'>
       <form>
         <h1>Subscription Manager</h1>
+
+        <div className='dashboard-cards'>
+          <div className='dashboard-card'>
+            <span>Monthly Total</span>
+            <h2>€{totalMonthlyCost.toFixed(2)}</h2>
+          </div>
+
+          <div className='dashboard-card'>
+            <span>Active Subscriptions</span>
+            <h2>{activeSubscriptions}</h2>
+          </div>
+
+          <div className='dashboard-card'>
+            <span>Annual Cost</span>
+            <h2>€{annualCost.toFixed(2)}</h2>
+          </div>
+        </div>
 
         <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
         <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
