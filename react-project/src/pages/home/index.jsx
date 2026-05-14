@@ -11,6 +11,7 @@ function Home() {
   const inputMonthlyPrice = useRef()
   const inputAccountEmail = useRef()
   const inputCategory = useRef()
+  const inputStatus = useRef()
 
   async function getSubscriptions() {
     const subscriptionsFromApi = await api.get('/subscriptions')
@@ -23,7 +24,8 @@ function Home() {
       serviceName: inputServiceName.current.value,
       monthlyPrice: inputMonthlyPrice.current.value,
       accountEmail: inputAccountEmail.current.value,
-      category: inputCategory.current.value
+      category: inputCategory.current.value,
+      status: inputStatus.current.value
     })
 
     getSubscriptions()
@@ -36,7 +38,7 @@ function Home() {
   }
 
   useEffect(() => {
-  //  getSubscriptions()
+    // getSubscriptions()
   }, [])
 
   const totalMonthlyCost = subscriptions.reduce(
@@ -94,6 +96,16 @@ function Home() {
           <option value='Education'>Education</option>
         </select>
 
+        <select ref={inputStatus} defaultValue=''>
+          <option value='' disabled>
+            Select Status
+          </option>
+
+          <option value='Active'>Active</option>
+          <option value='Paused'>Paused</option>
+          <option value='Cancelled'>Cancelled</option>
+        </select>
+
         <button type='button' onClick={createSubscription}> Add Subscription</button>
       </form>
 
@@ -118,6 +130,11 @@ function Home() {
 
                 <span className='category-badge'>
                   {subscription.category}
+                </span>
+
+                <span
+                  className={`status-badge ${subscription.status.toLowerCase()}`}>
+                  {subscription.status}
                 </span>
 
                 <p>{subscription.accountEmail}</p>

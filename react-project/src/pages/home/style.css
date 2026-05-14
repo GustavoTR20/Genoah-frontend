@@ -220,3 +220,33 @@ form select {
   font-size: 16px;
   cursor: pointer;
 }
+
+.category-badge,
+.status-badge {
+  display: inline-block;
+  margin: 6px 8px 6px 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.category-badge {
+  background-color: #312e81;
+  color: #c4b5fd;
+}
+
+.status-badge.active {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+
+.status-badge.paused {
+  background-color: #713f12;
+  color: #fde68a;
+}
+
+.status-badge.cancelled {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
