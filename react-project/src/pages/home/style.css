@@ -1,84 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #0f172a;
+  color: #fff;
+}
+
 .container {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 100px;
+  align-items: center;
+  padding: 60px 20px;
 }
 
 h1 {
-  font-size: 32px;
-  color: #fff;
+  font-size: 38px;
+  margin-bottom: 10px;
+  color: #ffffff;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
+  background: #1e293b;
   padding: 30px;
-  border-radius: 30px;
-  background-color: #2e2d4e;
-  max-width: 50%;
-  width: 400px;
-  margin-bottom: 20px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 30px;
+  border: 1px solid #334155;
+}
 
-  & button {
-    border-radius: 30px;
-    background-color: #8b8ae1;
-    height: 40px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    color: #fff;
-    font-size: 14px;
-  }
+form input {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  height: 50px;
+  color: white;
+  padding-left: 15px;
+  outline: none;
+  font-size: 16px;
+}
 
-  & button:hover {
-    opacity: 0.8;
-    background-color: #7a79c9;
-  }
+form input::placeholder {
+  color: #94a3b8;
+}
 
-  & input {
-    border-radius: 30px;
-    background-color: #363653;
-    height: 40px;
-    border: 1px solid #48456c;
-    color: #fff;
-    padding-left: 10px;
-    font-size: 16px;
-    outline: none;
-  }
+form button {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 12px;
+  height: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  opacity: 0.8;
 }
 
 .card {
+  width: 100%;
+  max-width: 450px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  margin: 10px;
-  background-color: #2e2d4e;
-  width: 400px;
-  border-radius: 10px;
+  align-items: center;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
 
-  & p{
-    color: #fff;
-    font-weight: bold;
+.card p {
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
 
-    & span {
-      font-weight: normal;
-    }
-  }
+.card span {
+  color: white;
+  font-weight: bold;
+}
 
-  & button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+.card button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
 
-    & img {
-    width: 15px;
-    height: 20px;
-    }
+.card button img {
+  width: 18px;
+  transition: 0.3s;
+}
 
-    & img:hover {
-      opacity: 0.4;
-    }
-  }
+.card button img:hover {
+  opacity: 0.5;
 }

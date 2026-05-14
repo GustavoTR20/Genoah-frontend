@@ -37,22 +37,22 @@ function Home() {
   }, [])
 
   return (
-
     <div className='container'>
       <form>
         <h1>Subscription Manager</h1>
+
         <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
         <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
         <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
-        <button type='button' onClick={createSubscription}>Add Subscription</button>
+
+        <button type='button' onClick={createSubscription}> Add Subscription </button>
       </form>
 
       {subscriptions.map((subscription) => (
-
         <div key={subscription.id} className='card'>
           <div>
             <p>Service: <span>{subscription.serviceName}</span></p>
-            <p>Price: <span>${subscription.monthlyPrice}</span></p>
+            <p>Price: <span>€{subscription.monthlyPrice}</span></p>
             <p>Account: <span>{subscription.accountEmail}</span></p>
           </div>
 
@@ -61,7 +61,6 @@ function Home() {
           </button>
         </div>
       ))}
-
     </div>
   )
 }
