@@ -230,6 +230,22 @@ function Home() {
             </div>
           ))}
         </div>
+        <div className='analytics-footer'>
+          <div className='analytics-item'>
+            <span>Monthly Spend</span>
+            <h3>€{totalMonthlyCost.toFixed(2)}</h3>
+          </div>
+
+          <div className='analytics-item'>
+            <span>Active Services</span>
+            <h3>{activeSubscriptions}</h3>
+          </div>
+
+          <div className='analytics-item'>
+            <span>Annual Cost</span>
+            <h3>€{annualCost.toFixed(2)}</h3>
+          </div>
+        </div>
       </main>
     </div>
   )
