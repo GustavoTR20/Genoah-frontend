@@ -7,6 +7,7 @@ function Home() {
   const [subscriptions, setSubscriptions] = useState([])
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('All')
+  const [editingId, setEditingId] = useState(null)
 
   const inputServiceName = useRef()
   const inputMonthlyPrice = useRef()
@@ -20,14 +21,37 @@ function Home() {
     setSubscriptions(subscriptionsFromApi.data)
   }
 
+  function editSubscription(subscription) {
+    inputServiceName.current.value = subscription.serviceName
+    inputMonthlyPrice.current.value = subscription.monthlyPrice
+    inputAccountEmail.current.value = subscription.accountEmail
+    inputCategory.current.value = subscription.category
+    inputStatus.current.value = subscription.status
+
+    setEditingId(subscription.id)
+  }
+
   async function createSubscription() {
-    await api.post('/subscriptions', {
+    const subscriptionData = {
       serviceName: inputServiceName.current.value,
       monthlyPrice: inputMonthlyPrice.current.value,
       accountEmail: inputAccountEmail.current.value,
       category: inputCategory.current.value,
       status: inputStatus.current.value
-    })
+    }
+
+    if (editingId) {
+      await api.put(`/subscriptions/${editingId}`, subscriptionData)
+      setEditingId(null)
+    } else {
+      await api.post('/subscriptions', subscriptionData)
+    }
+
+    inputServiceName.current.value = ''
+    inputMonthlyPrice.current.value = ''
+    inputAccountEmail.current.value = ''
+    inputCategory.current.value = ''
+    inputStatus.current.value = ''
 
     getSubscriptions()
   }
@@ -39,7 +63,7 @@ function Home() {
   }
 
   useEffect(() => {
-    // getSubscriptions()
+  // getSubscriptions()
   }, [])
 
   const totalMonthlyCost = subscriptions.reduce(
@@ -169,6 +193,8 @@ function Home() {
               <span className='price-tag'>
                 €{subscription.monthlyPrice}
               </span>
+
+              <button className='edit-button' onClick={() => editSubscription(subscription)}> Edit </button>
 
               <button onClick={() => deleteSubscription(subscription.id)}>
                 <img src={Trash} />

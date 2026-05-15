@@ -279,3 +279,18 @@ form select {
   border: none !important;
   color: white !important;
 }
+
+.edit-button {
+  background: transparent;
+  border: 1px solid #6366f1;
+  color: #c4b5fd;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #312e81;
+  color: white;
+}
