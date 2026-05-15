@@ -16,7 +16,6 @@ body {
   background: #0f121a;
 }
 
-/* SIDEBAR */
 .sidebar {
   width: 245px;
   background: #1b1f2a;
@@ -71,14 +70,12 @@ body {
   cursor: pointer;
 }
 
-.nav-item.active,
-.nav-item:hover {
+.nav-item.active, .nav-item:hover {
   background: #2a3142;
   color: #ffffff;
   box-shadow: inset 3px 0 0 #78aaff;
 }
 
-/* MAIN */
 .container {
   flex: 1;
   padding: 28px 34px;
@@ -123,7 +120,6 @@ body {
   color: #6f7788;
 }
 
-/* FORM */
 form {
   clear: both;
   display: grid;
@@ -136,8 +132,7 @@ form {
   margin-bottom: 24px;
 }
 
-form input,
-form select {
+form input, form select {
   background: #0c1018;
   border: 1px solid #2a3140;
   border-radius: 10px;
@@ -155,7 +150,6 @@ form button {
   cursor: pointer;
 }
 
-/* FILTERS */
 .filters {
   display: flex;
   gap: 8px;
@@ -173,13 +167,11 @@ form button {
   cursor: pointer;
 }
 
-.filters button:hover,
-.active-filter {
+.filters button:hover, .active-filter {
   background: #9bbfff !important;
   color: #07111f !important;
 }
 
-/* TABLE */
 .subscriptions-section {
   background: #10131a;
   border: 1px solid #242936;
@@ -192,8 +184,7 @@ form button {
   display: none;
 }
 
-.table-header,
-.subscription-row {
+.table-header, .subscription-row {
   display: grid;
   grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr;
   align-items: center;
@@ -245,8 +236,7 @@ form button {
   font-size: 12px;
 }
 
-.category-badge,
-.status-badge {
+.category-badge, .status-badge {
   display: inline-block;
   padding: 7px 14px;
   border-radius: 999px;
@@ -305,7 +295,6 @@ form button {
   border-radius: 8px;
 }
 
-/* FOOTER ANALYTICS */
 .analytics-footer {
   position: fixed;
   left: 280px;
@@ -326,7 +315,6 @@ form button {
   font-size: 24px;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .app-layout {
     flex-direction: column;
