@@ -10,7 +10,6 @@ body {
   color: #fff;
 }
 
-/* LAYOUT */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -170,7 +169,6 @@ h1 {
   color: white;
 }
 
-/* FORM */
 form {
   display: flex;
   flex-direction: column;
@@ -184,8 +182,7 @@ form {
   border: 1px solid #334155;
 }
 
-form input,
-form select {
+form input, form select {
   background-color: #0f172a;
   border: 1px solid #334155;
   border-radius: 12px;
@@ -245,8 +242,7 @@ form button:hover {
   color: #94a3b8;
 }
 
-.table-header,
-.subscription-row {
+.table-header, .subscription-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   align-items: center;
@@ -301,10 +297,7 @@ form button:hover {
   font-size: 14px;
 }
 
-.table-category,
-.table-status,
-.table-price,
-.table-actions {
+.table-category, .table-status, .table-price, .table-actions {
   display: flex;
   align-items: center;
 }
@@ -333,7 +326,6 @@ form button:hover {
   object-fit: contain;
 }
 
-/* BADGES */
 .price-tag {
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   padding: 10px 16px;
@@ -344,8 +336,7 @@ form button:hover {
   text-align: center;
 }
 
-.category-badge,
-.status-badge {
+.category-badge, .status-badge {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 999px;
@@ -412,4 +403,58 @@ form button:hover {
   margin-top: 10px;
   color: white;
   font-size: 28px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-cards, .analytics-footer {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .subscriptions-section {
+    overflow-x: auto;
+  }
+
+  .table-header, .subscription-row {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    margin-top: 0;
+  }
+
+  .container {
+    padding: 40px 16px;
+  }
+
+  h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  form, .search-input, .filters, .subscriptions-section, .analytics-footer {
+    max-width: 100%;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+  }
 }
