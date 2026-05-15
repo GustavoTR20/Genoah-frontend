@@ -63,7 +63,7 @@ function Home() {
   }
 
   useEffect(() => {
-  // getSubscriptions()
+    // getSubscriptions()
   }, [])
 
   const totalMonthlyCost = subscriptions.reduce(
@@ -88,7 +88,24 @@ function Home() {
   )
 
   return (
-    <div className='container'>
+    <div className='app-layout'>
+      <aside className='sidebar'>
+        <div className='sidebar-logo'>
+          <div className='logo-icon'>G</div>
+
+          <div>
+            <h2>GENOAH</h2>
+            <span>Pro Plan</span>
+          </div>
+        </div>
+
+        <nav className='sidebar-nav'>
+          <button className='nav-item active'>Dashboard</button>
+          <button className='nav-item'>Subscriptions</button>
+        </nav>
+      </aside>
+
+    <main className='container'>
       <h1>Subscription Manager</h1>
 
       <div className='dashboard-cards'>
@@ -203,7 +220,8 @@ function Home() {
           </div>
         ))}
       </div>
-    </div>
+  </main>
+  </div>
   )
 }
 
