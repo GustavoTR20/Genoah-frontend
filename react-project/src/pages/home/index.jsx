@@ -64,9 +64,14 @@ function Home() {
     getSubscriptions()
   }
 
-  useEffect(() => {
-  getSubscriptions()
-  }, [])
+ useEffect(() => {
+  async function loadSubscriptions() {
+    const subscriptionsFromApi = await api.get('/subscriptions')
+    setSubscriptions(subscriptionsFromApi.data)
+  }
+
+  loadSubscriptions()
+}, [])
 
   const totalMonthlyCost = subscriptions.reduce(
     (acc, subscription) =>
