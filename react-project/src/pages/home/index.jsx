@@ -8,6 +8,7 @@ function Home() {
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('All')
   const [editingId, setEditingId] = useState(null)
+  const [showForm, setShowForm] = useState(false)
 
   const inputServiceName = useRef()
   const inputMonthlyPrice = useRef()
@@ -54,6 +55,7 @@ function Home() {
     inputStatus.current.value = ''
 
     getSubscriptions()
+    setShowForm(false)
   }
 
   async function deleteSubscription(id) {
@@ -63,7 +65,7 @@ function Home() {
   }
 
   useEffect(() => {
-  //  getSubscriptions()
+  getSubscriptions()
   }, [])
 
   const totalMonthlyCost = subscriptions.reduce(
@@ -95,57 +97,29 @@ function Home() {
 
           <div>
             <h2>GENOAH</h2>
-            <span>Pro Plan</span>
+            <span>Full Stack Project</span>
           </div>
         </div>
 
         <nav className='sidebar-nav'>
-          <button className='nav-item active'>Dashboard</button>
-          <button className='nav-item'>Subscriptions</button>
+          <button className='nav-item active'>Subscriptions</button>
+          <button className='nav-item'>Dashboard</button>
         </nav>
       </aside>
 
       <main className='container'>
-        <h1>Subscription Manager</h1>
+        <div className='topbar'>
+          <h1>Manage Subscriptions</h1>
 
-        <div className='dashboard-cards'>
-          <div className='dashboard-card'>
-            <span>Monthly Total</span>
-            <h2>€{totalMonthlyCost.toFixed(2)}</h2>
-          </div>
 
-          <div className='dashboard-card'>
-            <span>Active Subscriptions</span>
-            <h2>{activeSubscriptions}</h2>
-          </div>
-
-          <div className='dashboard-card'>
-            <span>Annual Cost</span>
-            <h2>€{annualCost.toFixed(2)}</h2>
-          </div>
+          <button className='topbar-button' onClick={() => setShowForm(!showForm)}>
+            {showForm ? 'Close' : '+ Add New'} 
+          </button>
         </div>
 
         <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)} />
-        <div className='filters'>
 
-          <button className={statusFilter === 'All' ? 'active-filter' : ''} onClick={() => setStatusFilter('All')}>
-            All
-          </button>
-
-          <button
-            className={statusFilter === 'Active' ? 'active-filter' : ''} onClick={() => setStatusFilter('Active')}>
-            Active
-          </button>
-
-          <button className={statusFilter === 'Paused' ? 'active-filter' : ''} onClick={() => setStatusFilter('Paused')}>
-            Paused
-          </button>
-
-          <button className={statusFilter === 'Cancelled' ? 'active-filter' : ''} onClick={() => setStatusFilter('Cancelled')}>
-            Cancelled
-          </button>
-        </div>
-
+{showForm && (
         <form>
           <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
           <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
@@ -173,6 +147,26 @@ function Home() {
 
           <button type='button' onClick={createSubscription}> Add Subscription</button>
         </form>
+        )}
+
+        <div className='filters'>
+          <button className={statusFilter === 'All' ? 'active-filter' : ''} onClick={() => setStatusFilter('All')}>
+            All
+          </button>
+
+          <button
+            className={statusFilter === 'Active' ? 'active-filter' : ''} onClick={() => setStatusFilter('Active')}>
+            Active
+          </button>
+
+          <button className={statusFilter === 'Paused' ? 'active-filter' : ''} onClick={() => setStatusFilter('Paused')}>
+            Paused
+          </button>
+
+          <button className={statusFilter === 'Cancelled' ? 'active-filter' : ''} onClick={() => setStatusFilter('Cancelled')}>
+            Cancelled
+          </button>
+        </div>
 
         <div className='subscriptions-section'>
           <div className='subscriptions-header'>
@@ -237,7 +231,7 @@ function Home() {
           </div>
 
           <div className='analytics-item'>
-            <span>Active Services</span>
+            <span>Services</span>
             <h3>{activeSubscriptions}</h3>
           </div>
 
