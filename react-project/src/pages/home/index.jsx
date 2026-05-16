@@ -3,6 +3,7 @@ import './style.css'
 import Trash from '../../assets/trash.png'
 import api from '../../services/api'
 import Sidebar from '../../components/sidebar'
+import Topbar from '../../components/topbar'
 
 function Home() {
   const [subscriptions, setSubscriptions] = useState([])
@@ -100,14 +101,7 @@ function Home() {
       <Sidebar />
 
       <main className='container'>
-        <div className='topbar'>
-          <h1>Manage Subscriptions</h1>
-
-
-          <button className='topbar-button' onClick={() => setShowForm(!showForm)}>
-            {showForm ? 'Close' : '+ Add New'} 
-          </button>
-        </div>
+        <Topbar showForm={showForm} setShowForm={setShowForm} />
 
         <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)} />
 
