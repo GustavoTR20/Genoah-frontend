@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
 import './style.css'
-import Trash from '../../assets/trash.png'
 import api from '../../services/api'
 import Sidebar from '../../components/sidebar'
 import Topbar from '../../components/topbar'
+import SubscriptionTable from '../../components/subscriptionTable'
 
 function Home() {
   const [subscriptions, setSubscriptions] = useState([])
@@ -66,14 +66,14 @@ function Home() {
     getSubscriptions()
   }
 
- useEffect(() => {
-  async function loadSubscriptions() {
-    const subscriptionsFromApi = await api.get('/subscriptions')
-    setSubscriptions(subscriptionsFromApi.data)
-  }
+  useEffect(() => {
+    async function loadSubscriptions() {
+      const subscriptionsFromApi = await api.get('/subscriptions')
+      setSubscriptions(subscriptionsFromApi.data)
+    }
 
-  loadSubscriptions()
-}, [])
+    loadSubscriptions()
+  }, [])
 
   const totalMonthlyCost = subscriptions.reduce(
     (acc, subscription) =>
@@ -103,113 +103,47 @@ function Home() {
       <main className='container'>
         <Topbar showForm={showForm} setShowForm={setShowForm} />
 
-        <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) => setSearch(event.target.value)} />
+        <input className='search-input' placeholder='Search subscriptions...' type='text' value={search} onChange={(event) =>
+          setSearch(event.target.value)} />
+        {showForm && (
 
-{showForm && (
-        <form>
-          <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
-          <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
-          <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
+          <form>
+            <input placeholder='Service Name' name='serviceName' type='text' ref={inputServiceName} />
+            <input placeholder='Monthly Price' name='monthlyPrice' type='number' ref={inputMonthlyPrice} />
+            <input placeholder='Account Email' name='accountEmail' type='email' ref={inputAccountEmail} />
 
-          <select ref={inputCategory} defaultValue=''>
-            <option value='' disabled> Select Category</option>
-            <option value='Streaming'>Streaming</option>
-            <option value='Music'>Music</option>
-            <option value='Cloud'>Cloud</option>
-            <option value='Fitness'>Fitness</option>
-            <option value='Software'>Software</option>
-            <option value='Education'>Education</option>
-          </select>
+            <select ref={inputCategory} defaultValue=''>
+              <option value='' disabled> Select Category</option>
+              <option value='Streaming'>Streaming</option>
+              <option value='Music'>Music</option>
+              <option value='Cloud'>Cloud</option>
+              <option value='Fitness'>Fitness</option>
+              <option value='Software'>Software</option>
+              <option value='Education'>Education</option>
+            </select>
 
-          <select ref={inputStatus} defaultValue=''>
-            <option value='' disabled>
-              Select Status
-            </option>
+            <select ref={inputStatus} defaultValue=''>
+              <option value='' disabled>
+                Select Status
+              </option>
 
-            <option value='Active'>Active</option>
-            <option value='Paused'>Paused</option>
-            <option value='Cancelled'>Cancelled</option>
-          </select>
+              <option value='Active'>Active</option>
+              <option value='Paused'>Paused</option>
+              <option value='Cancelled'>Cancelled</option>
+            </select>
 
-          <button type='button' onClick={createSubscription}> Add Subscription</button>
-        </form>
+            <button type='button' onClick={createSubscription}> Add Subscription</button>
+          </form>
         )}
 
-        <div className='filters'>
-          <button className={statusFilter === 'All' ? 'active-filter' : ''} onClick={() => setStatusFilter('All')}>
-            All
-          </button>
+        <SubscriptionTable
+          filteredSubscriptions={filteredSubscriptions}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          editSubscription={editSubscription}
+          deleteSubscription={deleteSubscription}/>
 
-          <button
-            className={statusFilter === 'Active' ? 'active-filter' : ''} onClick={() => setStatusFilter('Active')}>
-            Active
-          </button>
 
-          <button className={statusFilter === 'Paused' ? 'active-filter' : ''} onClick={() => setStatusFilter('Paused')}>
-            Paused
-          </button>
-
-          <button className={statusFilter === 'Cancelled' ? 'active-filter' : ''} onClick={() => setStatusFilter('Cancelled')}>
-            Cancelled
-          </button>
-        </div>
-
-        <div className='subscriptions-section'>
-          <div className='subscriptions-header'>
-            <h2>Your Subscriptions</h2>
-
-            <span>
-              {filteredSubscriptions.length} active services
-            </span>
-          </div>
-
-          <div className='table-header'>
-            <span>Service</span>
-            <span>Category</span>
-            <span>Status</span>
-            <span>Price</span>
-            <span>Actions</span>
-          </div>
-
-          {filteredSubscriptions.map((subscription) => (
-            <div key={subscription.id} className='subscription-row'>
-              <div className='table-service'>
-                <div className='subscription-icon'>
-                  {subscription.serviceName.charAt(0)}
-                </div>
-
-                <div>
-                  <h3>{subscription.serviceName}</h3>
-                  <p>{subscription.accountEmail}</p>
-                </div>
-              </div>
-
-              <div className='table-category'>
-                <span className='category-badge'>
-                  {subscription.category}
-                </span>
-              </div>
-
-              <div className='table-status'>
-                <span className={`status-badge ${subscription.status.toLowerCase()}`}>
-                  {subscription.status}
-                </span>
-              </div>
-
-              <div className='table-price'>
-                €{subscription.monthlyPrice}
-              </div>
-
-              <div className='table-actions'>
-                <button className='edit-button' onClick={() => editSubscription(subscription)}> Edit </button>
-
-                <button onClick={() => deleteSubscription(subscription.id)}>
-                  <img src={Trash} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
         <div className='analytics-footer'>
           <div className='analytics-item'>
             <span>Monthly Spend</span>
