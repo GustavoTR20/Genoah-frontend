@@ -114,7 +114,7 @@ https://github.com/GustavoTR20/Genoah-backend
 
 The project is deployed and can be accessed at:
 
-https://your-live-website-link.com
+https://genoah-frontend.onrender.com/
 
 ---
 
