@@ -315,22 +315,49 @@ form button {
   font-size: 24px;
 }
 
+@media (max-width: 1200px) {
+  .container {
+    padding: 32px 24px;
+  }
+
+  .topbar, .search-input, form, .filters, .subscriptions-section, .analytics-footer {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 900px) {
   .app-layout {
     flex-direction: column;
+    overflow-x: hidden;
   }
 
   .sidebar {
     width: 100%;
   }
 
-  .search-input {
-    float: none;
+  .container {
     width: 100%;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .search-input, form, .filters, .subscriptions-section, .analytics-footer {
+    width: 100%;
+    max-width: 100%;
   }
 
   form {
     grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-wrap: wrap;
   }
 
   .table-header {
@@ -342,10 +369,67 @@ form button {
     gap: 14px;
   }
 
+  .table-service, .table-category, .table-status, .table-price, .table-actions {
+    width: 100%;
+  }
+
+  .table-actions {
+    justify-content: flex-start;
+  }
+
   .analytics-footer {
     position: static;
     margin-top: 30px;
     flex-direction: column;
     gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .sidebar {
+    padding: 20px 14px;
+  }
+
+  .sidebar-logo h2 {
+    font-size: 18px;
+  }
+
+  .sidebar-logo span {
+    font-size: 12px;
+  }
+
+  .topbar h1 {
+    font-size: 24px;
+  }
+
+  .topbar-button {
+    width: 100%;
+  }
+
+  .filters button {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .subscriptions-section {
+    padding: 18px;
+  }
+
+  .subscriptions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .subscription-row {
+    padding: 18px 0;
+  }
+
+  .analytics-item {
+    width: 100%;
   }
 }
