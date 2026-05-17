@@ -76,7 +76,11 @@ function Home() {
     loadSubscriptions()
   }, [])
 
-  const totalMonthlyCost = subscriptions.reduce(
+  const activeSubscriptionsList = subscriptions.filter(
+    (subscription) => subscription.status === 'Active'
+  )
+
+  const totalMonthlyCost = activeSubscriptionsList.reduce(
     (acc, subscription) =>
       acc + Number(subscription.monthlyPrice),
     0
@@ -139,13 +143,13 @@ function Home() {
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           editSubscription={editSubscription}
-          deleteSubscription={deleteSubscription}/>
+          deleteSubscription={deleteSubscription} />
 
         <Footer
           totalMonthlyCost={totalMonthlyCost}
           activeSubscriptions={activeSubscriptions}
-          annualCost={annualCost}/>
-          
+          annualCost={annualCost} />
+
       </main>
     </div>
   )
