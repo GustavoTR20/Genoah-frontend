@@ -33,6 +33,8 @@ function Home() {
     inputStatus.current.value = subscription.status
 
     setEditingId(subscription.id)
+
+    setShowForm(true)
   }
 
   async function createSubscription() {
